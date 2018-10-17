@@ -11,7 +11,9 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    private String publisher;
+
+    @OneToOne
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name="author_book", joinColumns = @JoinColumn(name="book_id"),
@@ -20,17 +22,17 @@ public class Book {
 
     public Book(){}
 
-    public Book(String title, String isbn, String publisher){
-        this.setTitle(title);
-        this.setIsbn(isbn);
-        this.setPublisher(publisher);
+    public Book(String title, String isbn, Publisher publisher){
+        this.title = title;
+        this.isbn = isbn;
+        this.publisher = publisher;
     }
 
-    public Book(String title, String isbn, String publisher, Set<Author> authors){
-        this.setTitle(title);
-        this.setIsbn(isbn);
-        this.setPublisher(publisher);
-        this.setAuthors(authors);
+    public Book(String title, String isbn, Set<Author> authors, Publisher publisher){
+        this.title = title;
+        this.isbn = isbn;
+        this.authors = authors;
+        this.publisher = publisher;
     }
 
 
@@ -49,15 +51,6 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
     public Set<Author> getAuthors() {
         return authors;
     }
